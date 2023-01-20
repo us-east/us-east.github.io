@@ -1,44 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <script>
-        // 1. Get the API key
-        var apiKey = 'AIzaSyCrKEkSjMWoLUA4WkPvVoEELI5d-2NBaBY';
+  <head>
+    <script>
+      // 1. Get the API key
+      var apiKey = 'YOUR_API_KEY';
 
-        // 3. Include the Google Maps JavaScript API
-        var script = document.createElement('script');
-        script.src = 'https://maps.googleapis.com/maps/api/js?key=' + apiKey + '&libraries=visualization&callback=initMap';
-        document.head.appendChild(script);
-        // 4. Create a new map and set the options
-        var map;
-        var heatmap;
-        var heatmapData = [
-            {location: new google.maps.LatLng(34.0522, -118.2437), weight: 10},
-            {location: new google.maps.LatLng(34.0622, -118.2537), weight: 20},
-            {location: new google.maps.LatLng(34.0722, -118.2637), weight: 30}
-        ];
+      // 2. Create a new map and set the options
+      var map;
+      var heatmap;
+      var heatmapData = [
+        {location: new google.maps.LatLng(34.0522, -118.2437), weight: 10},
+        {location: new google.maps.LatLng(34.0622, -118.2537), weight: 20},
+        {location: new google.maps.LatLng(34.0722, -118.2637), weight: 30}
+      ];
 
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 34.0522, lng: -118.2437},
-                zoom: 8
-            });
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 34.0522, lng: -118.2437},
+          zoom: 8
+        });
 
+        // 3. Create a heatmap layer
+        heatmap = new google.maps.visualization.HeatmapLayer({
+          data: heatmapData
+        });
 
-            // 5. create a heatmap layer
-            heatmap = new google.maps.visualization.HeatmapLayer({
-                data: heatmapData
-            });
+        // 4. Add the heatmap layer to the map
+        heatmap.setMap(map);
+      }
 
-            // 6. add the heatmap layer to the map
-            heatmap.setMap(map);
-        }
-  </script>
+      // 5. Include the Google Maps JavaScript API
+      var script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + apiKey + '&libraries=visualization&callback=initMap';
+      document.head.appendChild(script);
+    </script>
+    <title>Heatmap POC</title>
+  </head>
+  <body>
+    <div id="map" style="height: 500px;"></div>
+  </body>
 
-
-  <title>Heatmap POC</title>
-</head>
-<body>
-<div id="map" style="height: 500px;"></div>
-</body>
 </html>
