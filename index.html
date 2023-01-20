@@ -7,7 +7,7 @@
 
         // 3. Include the Google Maps JavaScript API
         var script = document.createElement('script');
-        script.src = 'https://maps.googleapis.com/maps/api/js?key=' + apiKey + '&callback=initMap';
+        script.src = 'https://maps.googleapis.com/maps/api/js?key=' + apiKey + '&libraries=visualization&callback=initMap';
         document.head.appendChild(script);
         // 4. Create a new map and set the options
         var map;
@@ -23,6 +23,7 @@
                 center: {lat: 34.0522, lng: -118.2437},
                 zoom: 8
             });
+
 
             // 5. create a heatmap layer
             heatmap = new google.maps.visualization.HeatmapLayer({
