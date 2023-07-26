@@ -1,43 +1,13 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script>
-      // 1. Get the API key
-      var apiKey = 'YOUR_API_KEY';
-
-      // 2. Create a new map and set the options
-      var map;
-      var heatmap;
-      var heatmapData = [
-        {location: new google.maps.LatLng(34.0522, -118.2437), weight: 10},
-        {location: new google.maps.LatLng(34.0622, -118.2537), weight: 20},
-        {location: new google.maps.LatLng(34.0722, -118.2637), weight: 30}
-      ];
-
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 34.0522, lng: -118.2437},
-          zoom: 8
-        });
-
-        // 3. Create a heatmap layer
-        heatmap = new google.maps.visualization.HeatmapLayer({
-          data: heatmapData
-        });
-
-        // 4. Add the heatmap layer to the map
-        heatmap.setMap(map);
-      }
-
-      // 5. Include the Google Maps JavaScript API
-      var script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + apiKey + '&libraries=visualization&callback=initMap';
-      document.head.appendChild(script);
-    </script>
-    <title>Heatmap POC</title>
-  </head>
-  <body>
-    <div id="map" style="height: 500px;"></div>
-  </body>
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scout Form</title>
+</head>
+<body>
+    <!-- Embedded Zapier Interface -->
+    <script type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+    <zapier-interfaces-page-embed page-id='clk9vb51b143350pjqjyit7hc1' no-background='false' style='max-width: 900px; height: 500px;'></zapier-interfaces-page-embed>
+</body>
 </html>
