@@ -2,9 +2,15 @@
 <html>
 <head>
     <title>Scout Issue Report Form</title>
+    <script type="text/javascript">
+        function formSubmit() {
+            window.location = 'confirmation.html';
+            return false;
+        }
+    </script>
 </head>
 <body>
-    <form action="https://hooks.zapier.com/hooks/catch/15275232/31pxk4g/" method="post">
+    <form action="https://hooks.zapier.com/hooks/catch/15275232/31pxk4g/" method="post" onsubmit="return formSubmit();">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" required><br>
         
