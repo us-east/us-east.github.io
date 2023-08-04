@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <script type="text/javascript">
-        function formSubmit() {
-            window.location = 'confirmation.html';
-            return false;
-        }
-    </script>
     <title>Scout Issue Report Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <form action="https://hooks.zapier.com/hooks/catch/15892648/31pvirh/" method="post">
+    <form id="reportForm">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" required><br>
         
@@ -36,7 +31,23 @@
             <option value="Web">Web</option>
         </select><br>
         
-        <input type="submit" value="Submit">
+        <input type="button" value="Submit" onclick="submitForm()">
     </form>
+    <script>
+        function submitForm() {
+            var formData = $('#reportForm').serialize();
+            $.ajax({
+                type: 'post',
+                url: 'https://hooks.zapier.com/hooks/catch/15892648/31pvirh/',
+                data: formData,
+                success: function() {
+                    window.location.href = 'confirmation.html';
+                },
+                error: function() {
+                    alert('There was an error submitting the form, please try again.');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
