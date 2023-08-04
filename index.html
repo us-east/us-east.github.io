@@ -3,7 +3,6 @@
 <head>
     <title>Scout Issue Report Form</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <!-- JavaScript for form submission -->
     <script type="text/javascript">
         function formSubmit() {
             window.location = 'confirmation.html';
@@ -11,7 +10,6 @@
         }
     </script>
 </head>
-
 <body class="p-6 bg-gray-100 text-gray-900">
     <form action="https://hooks.zapier.com/hooks/catch/15275232/31pxk4g/" method="post" onsubmit="return formSubmit();" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="mb-4">
@@ -19,8 +17,36 @@
             <input type="text" id="name" name="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         
-        <!-- Repeat above structure for each input field -->
-        
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Title/Summary:</label>
+            <input type="text" id="title" name="title" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="description">Description:</label>
+            <textarea id="description" name="description" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="severity">Severity:</label>
+            <select id="severity" name="severity" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <option value="">--Please choose an option--</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="device">Device Type:</label>
+            <select id="device" name="device" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <option value="">--Please choose an option--</option>
+                <option value="Android">Android</option>
+                <option value="iOS">iOS</option>
+                <option value="Web">Web</option>
+            </select>
+        </div>
+
         <div class="flex items-center justify-between">
             <input type="submit" value="Submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
         </div>
