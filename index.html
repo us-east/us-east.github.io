@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scout Issue Report Form</title>
-    <style>
-        /* Set the zapier-interfaces-page-embed element to be responsive */
-        zapier-interfaces-page-embed {
-            width: 100%;
-            height: 100vh; /* You can adjust this value to your preference */
-        }
-    </style>
 </head>
 <body>
-    <!-- Embedded Zapier Interface -->
-    <script type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
-    <zapier-interfaces-page-embed page-id='clk9vb51b143350pjqjyit7hc1' no-background='false'></zapier-interfaces-page-embed>
+    <form action="https://hooks.zapier.com/hooks/catch/15275232/31pxk4g/" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        
+        <label for="title">Title/Summary:</label><br>
+        <input type="text" id="title" name="title" required><br>
+        
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" required></textarea><br>
+        
+        <label for="severity">Severity:</label><br>
+        <select id="severity" name="severity" required>
+            <option value="">--Please choose an option--</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select><br>
+        
+        <label for="device">Device Type:</label><br>
+        <select id="device" name="device" required>
+            <option value="">--Please choose an option--</option>
+            <option value="Android">Android</option>
+            <option value="iOS">iOS</option>
+            <option value="Web">Web</option>
+        </select><br>
+        
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
