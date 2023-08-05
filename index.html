@@ -7,6 +7,8 @@
 </head>
 <body class="bg-gray-100 py-8">
     <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4 p-6">
+        <h1 class="text-2xl font-bold mb-4">Scout Issue Report Form</h1> <!-- This is the added heading title -->
+         <p class="text-gray-600 mb-4">Please fill out the form below to report any issues or bugs you have encountered. Your feedback is valuable to us!</p> <!-- This is the added form description -->
         <form id="reportForm" class="space-y-4">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Your Name:</label>
@@ -21,12 +23,10 @@
             </div>
 
             <div>
-    <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
-    <small class="text-gray-500">A detailed description of the bug, including steps to reproduce it if possible.</small>
-    <textarea id="description" name="description" rows="5" required class="mt-1 block w-full px-2 pt-2 pb-6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 leading-none"></textarea>
-</div>
-
-
+                <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                <small class="text-gray-500">A detailed description of the bug, including steps to reproduce it if possible.</small>
+                <textarea id="description" name="description" rows="5" required class="mt-1 block w-full px-2 pt-2 pb-6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 leading-none"></textarea>
+            </div>
 
             <div>
                 <label for="severity" class="block text-sm font-medium text-gray-700">Severity:</label>
