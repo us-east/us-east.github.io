@@ -71,7 +71,7 @@
         function openPicker() {
           const options = {
             accept: 'image/*',
-            maxFiles: 5,
+            maxFiles: 1,
             onUploadDone: (response) => {
               // Store the file URL in the hidden input field
               $('#fileURL').val(response.filesUploaded[0].url);
