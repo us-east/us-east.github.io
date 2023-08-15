@@ -4,6 +4,7 @@
     <title>Scout Issue Report Form</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </head>
 <body class="bg-gray-100 py-8">
     <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4 p-6">
@@ -49,25 +50,53 @@
             </div>
 
             <div>
+                <label for="fileUpload" class="block text-sm font-medium text-gray-700">Upload File:</label>
+                <input type="button" id="fileUpload" value="Upload" class="mt-1 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <input type="hidden" id="fileURL" name="fileURL">
+                <p id="fileInfo" class="text-gray-500"></p> <!-- Display file info -->
+            </div>
+
+
+            <div>
                 <input type="button" value="Submit" onclick="submitForm()" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             </div>
         </form>
     </div>
-    <script>
-        function submitForm() {
-            var formData = $('#reportForm').serialize();
-            $.ajax({
-                type: 'post',
-                url: 'https://hooks.zapier.com/hooks/catch/15892648/31pvirh/',
-                data: formData,
-                success: function() {
-                    window.location.href = 'confirmation.html'; // updated confirmation page url
-                },
-                error: function() {
-                    alert('There was an error submitting the form, please try again.');
-                }
-            });
-        }
-    </script>
+    
+<script>
+    // Filestack Integration
+    const client = filestack.init('AfsQALJoRQhKdzEMnfL4bz');
+
+    document.getElementById('fileUpload').addEventListener('click', function() {
+        client.picker({
+            maxFiles: 1,
+            maxSize: 5 * 1024 * 1024, // 5 MB
+        }).open().then(result => {
+            const fileURL = result.filesUploaded[0].url;
+            document.getElementById('fileURL').value = fileURL;
+            document.getElementById('fileInfo').innerText = 'File uploaded successfully.';
+        }).catch(error => {
+            document.getElementById('fileInfo').innerText = 'File upload failed.';
+            console.error(error);
+        });
+    });
+
+    // Form Submission Function
+    function submitForm() {
+        var formData = $('#reportForm').serialize();
+        $.ajax({
+            type: 'post',
+            url: 'https://hooks.zapier.com/hooks/catch/15892648/31pvirh/',
+            data: formData,
+            success: function() {
+                window.location.href = 'confirmation.html'; // updated confirmation page url
+            },
+            error: function() {
+                alert('There was an error submitting the form, please try again.');
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
