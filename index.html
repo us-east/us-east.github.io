@@ -62,43 +62,41 @@
             </div>
         </form>
     </div>
-    
+
 <script>
-    // Filestack Integration
-    const client = filestack.init('AfsQALJoRQhKdzEMnfL4bz');
+        // Filestack Integration
+        const client = filestack.init('AfsQALJoRQhKdzEMnfL4bz');
 
-    document.getElementById('fileUpload').addEventListener('click', function() {
-    client.picker({
-        maxFiles: 1,
-        maxSize: 5 * 1024 * 1024, // 5 MB
-    }).open().then(result => {
-        console.log('Filestack result:', result); // This line will log the result
-        const fileURL = result.filesUploaded[0].url;
-        document.getElementById('fileURL').value = fileURL;
-        document.getElementById('fileInfo').innerText = 'File uploaded successfully.';
-    }).catch(error => {
-        document.getElementById('fileInfo').innerText = 'File upload failed.';
-        console.error(error);
-    });
-});
-
-
-    // Form Submission Function
-    function submitForm() {
-        var formData = $('#reportForm').serialize();
-        $.ajax({
-            type: 'post',
-            url: 'https://hooks.zapier.com/hooks/catch/15892648/31pvirh/',
-            data: formData,
-            success: function() {
-                window.location.href = 'confirmation.html'; // updated confirmation page url
-            },
-            error: function() {
-                alert('There was an error submitting the form, please try again.');
-            }
+        document.getElementById('fileUpload').addEventListener('click', function() {
+            client.picker({
+                maxFiles: 1,
+                maxSize: 5 * 1024 * 1024 // 5 MB
+            }).open().then(result => {
+                const fileURL = result.filesUploaded[0].url;
+                document.getElementById('fileURL').value = fileURL;
+                document.getElementById('fileInfo').innerText = 'File uploaded successfully.';
+            }).catch(error => {
+                document.getElementById('fileInfo').innerText = 'File upload failed.';
+                console.error(error);
+            });
         });
-    }
-</script>
+
+        // Form Submission Function
+        function submitForm() {
+            var formData = $('#reportForm').serialize();
+            $.ajax({
+                type: 'post',
+                url: 'https://hooks.zapier.com/hooks/catch/15892648/31pvirh/',
+                data: formData,
+                success: function() {
+                    window.location.href = 'confirmation.html'; // updated confirmation page url
+                },
+                error: function() {
+                    alert('There was an error submitting the form, please try again.');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
