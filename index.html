@@ -64,22 +64,28 @@
     </div>
 
 <script>
-        // Filestack Integration
+        // Initialize Filestack client
         const client = filestack.init('AfsQALJoRQhKdzEMnfL4bz');
 
-        document.getElementById('fileUpload').addEventListener('click', function() {
-            client.picker({
-                maxFiles: 1,
-                maxSize: 5 * 1024 * 1024 // 5 MB
-            }).open().then(result => {
-                const fileURL = result.filesUploaded[0].url;
-                document.getElementById('fileURL').value = fileURL;
-                document.getElementById('fileInfo').innerText = 'File uploaded successfully.';
-            }).catch(error => {
-                document.getElementById('fileInfo').innerText = 'File upload failed.';
-                console.error(error);
-            });
-        });
+        // Function to open the file picker
+        function openPicker() {
+          const options = {
+            accept: 'image/*',
+            maxFiles: 5,
+            onUploadDone: (response) => {
+              // Store the file URL in the hidden input field
+              $('#fileURL').val(response.filesUploaded[0].url);
+              // Display file info
+              $('#fileInfo').text(`File uploaded: ${response.filesUploaded[0].filename}`);
+            },
+          };
+
+          client.picker(options).open();
+        }
+
+        // Attach the openPicker function to the "Upload" button
+        $('#fileUpload').click(openPicker);
+
 
         // Form Submission Function
         function submitForm() {
