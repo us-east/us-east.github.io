@@ -70,7 +70,7 @@
         // Function to open the file picker
         function openPicker() {
           const options = {
-            accept: 'image/*',
+            accept: ['image/*', 'video/*'], // Allow both image and video files
             maxFiles: 1,
             onUploadDone: (response) => {
               // Store the file URL in the hidden input field
