@@ -27,7 +27,15 @@
         <form id="reportForm" class="space-y-4">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Your Name: <span class="text-red-600">*</span></label>
-                <input type="text" id="name" name="name" required class="mt-1 block w-full px-2 py-3 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                <input type="text" id="name" name="name" list="nameOptions" required class="mt-1 block w-full px-2 py-3 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                <datalist id="nameOptions">
+                    <option value="Dan Huynh">
+                    <option value="Dawn Leuenberger">
+                    <option value="Jill Huckels">
+                    <option value="Mike Skeen">
+                    <option value="Sunil Mohan">
+                    <option value="Scott Newland">
+                </datalist>
             </div>
 
             <div>
