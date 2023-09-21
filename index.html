@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Scout Issue Report Form</title>
+    <title>Scout Feedback Form</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
@@ -22,9 +22,24 @@
 </head>
 <body class="bg-gray-100 py-8">
     <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4 p-6">
-        <h1 class="text-2xl font-bold mb-4">Scout Issue Report Form</h1> <!-- This is the added heading title -->
-         <p class="text-gray-600 mb-4">Please fill out the form below to report any issues or bugs you have encountered. Your feedback is valuable to us!</p> <!-- This is the added form description -->
+        <h1 class="text-2xl font-bold mb-4">Share Your Feedback</h1> <!-- This is the added heading title -->
+         <p class="text-gray-600 mb-4">Help us improve our app by reporting an issue or suggesting an idea.</p> <!-- This is the added form description -->
         <form id="reportForm" class="space-y-4">
+           
+           <div>
+              <label class="block text-sm font-medium text-gray-700">Select Option: <span class="text-red-600">*</span></label>
+              <div class="mt-2">
+                <label class="inline-flex items-center mr-4">
+                  <input type="radio" class="form-radio" name="reportType" value="issue" checked>
+                  <span class="ml-2">Report an Issue</span>
+                </label>
+                <label class="inline-flex items-center">
+                  <input type="radio" class="form-radio" name="reportType" value="idea">
+                  <span class="ml-2">Suggest an Idea</span>
+                </label>
+              </div>
+            </div>
+
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Your Name: <span class="text-red-600">*</span></label>
                 <input type="text" id="name" name="name" list="nameOptions" required class="mt-1 block w-full px-2 py-3 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
@@ -38,18 +53,18 @@
 
             <div>
                 <label for="title" class="block text-sm font-medium text-gray-700">Title/Summary: <span class="text-red-600">*</span></label>
-                <small class="text-gray-500">A brief and descriptive title for the issue.</small>
+                <small class="text-gray-500">A brief and descriptive title for the issue or idea.</small>
                 <input type="text" id="title" name="title" required class="mt-1 block w-full px-2 py-3 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
 
             </div>
 
             <div>
                 <label for="description" class="block text-sm font-medium text-gray-700">Description: <span class="text-red-600">*</span></label>
-                <small class="text-gray-500">A detailed description of the bug, including steps to reproduce it if possible.</small>
+                <small class="text-gray-500">Describe the issue or idea in detail.</small>
                 <textarea id="description" name="description" rows="5" required class="mt-1 block w-full px-2 pt-2 pb-6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 leading-none"></textarea>
             </div>
 
-            <div>
+            <div id="severityDiv">
                 <label for="severity" class="block text-sm font-medium text-gray-700">Severity:</label>
                 <select id="severity" name="severity" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">--Please choose an option--</option>
@@ -60,7 +75,7 @@
                 </select>
             </div>
 
-            <div>
+            <div id="deviceDiv">
                 <label for="device" class="block text-sm font-medium text-gray-700">Device Type:</label>
                 <select id="device" name="device" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">--Please choose an option--</option>
@@ -70,7 +85,7 @@
                 </select>
             </div>
 
-            <div>
+            <div id="fileUploadDiv">
                 <label for="fileUpload" class="block text-sm font-medium text-gray-700">Upload File:</label>
                 <small class="text-gray-500">Attach one image or video (max. 5MB) to your report.</small>
                 <div>
@@ -88,67 +103,94 @@
     </div>
 
 <script>
-        // Initialize Filestack client
-        const client = filestack.init('AfsQALJoRQhKdzEMnfL4bz');
 
-        // Function to open the file picker
-        function openPicker() {
-          const options = {
-            accept: ['image/*', 'video/*'], // Allow both image and video files
-            maxFiles: 1,
-            onUploadDone: (response) => {
-              // Store the file URL in the hidden input field
-              $('#fileURL').val(response.filesUploaded[0].url);
-              // Display file info
-              $('#fileInfo').text(`File uploaded: ${response.filesUploaded[0].filename}`);
-            },
-          };
+// Initialize Filestack client
+const client = filestack.init('AfsQALJoRQhKdzEMnfL4bz');
 
-          client.picker(options).open();
-        }
+// Function to open the file picker
+function openPicker() {
+  const options = {
+    accept: ['image/*', 'video/*'], // Allow both image and video files
+    maxFiles: 1,
+    onUploadDone: (response) => {
+      // Store the file URL in the hidden input field
+      $('#fileURL').val(response.filesUploaded[0].url);
+      // Display file info
+      $('#fileInfo').text(`File uploaded: ${response.filesUploaded[0].filename}`);
+    },
+  };
 
-        // Attach the openPicker function to the "Upload" button
-        $('#fileUpload').click(openPicker);
-
-
-        function submitForm() {
-    var startTime = new Date(); // Record the start time
-
-    var formData = $('#reportForm').serialize();
-    $.ajax({
-        type: 'post',
-        url: 'https://hooks.zapier.com/hooks/catch/15892648/39gk98a/',
-        data: formData,
-        success: function() {
-            var endTime = new Date(); // Record the end time
-            var formCompletionDuration = (endTime - startTime) / 1000; // Calculate the time taken in seconds
-
-            var reporterName = $('#name').val();
-            var issueTitle = $('#title').val();
-            var description = $('#description').val();
-            var severity = $('#severity').val();
-            var deviceType = $('#device').val();
-            var fileUploaded = $('#fileURL').val();
-
-            // Track the event with Mixpanel
-            mixpanel.track("Issue Reported", {
-                reporter_name: reporterName,
-                issue_title: issueTitle,
-                description: description,
-                severity: severity,
-                device_type: deviceType,
-                file_uploaded: fileUploaded,
-                form_completion_duration: formCompletionDuration
-            });
-
-            window.location.href = 'confirmation.html'; // updated confirmation page url
-        },
-        error: function() {
-            alert('There was an error submitting the form, please try again.');
-        }
-    });
+  client.picker(options).open();
 }
-    </script>
+
+// Attach the openPicker function to the "Upload" button
+$('#fileUpload').click(openPicker);
+
+// Handle radio button changes
+$(document).ready(function() {
+  $("input[name='reportType']").change(function() {
+    const selectedOption = $("input[name='reportType']:checked").val();
+
+    if (selectedOption === 'issue') {
+      $('#title').attr('placeholder', 'Enter issue title');
+      $('#description').attr('placeholder', 'Describe the issue');
+      $('#severityDiv').show();
+      $('#deviceDiv').show();
+      $('#fileUploadDiv').show();
+    } else {
+      $('#title').attr('placeholder', 'Enter idea title');
+      $('#description').attr('placeholder', 'Describe the idea');
+      $('#severityDiv').hide();
+      $('#deviceDiv').hide();
+      $('#fileUploadDiv').hide();
+    }
+  });
+});
+
+function submitForm() {
+  var startTime = new Date(); // Record the start time
+
+  var formData = $('#reportForm').serialize();
+  $.ajax({
+      type: 'post',
+      url: 'https://hooks.zapier.com/hooks/catch/15892648/39gk98a/',
+      data: formData,
+      success: function() {
+          var endTime = new Date(); // Record the end time
+          var formCompletionDuration = (endTime - startTime) / 1000; // Calculate the time taken in seconds
+
+          var reporterName = $('#name').val();
+          var issueTitle = $('#title').val();
+          var description = $('#description').val();
+          var severity = $('#severity').val();
+          var deviceType = $('#device').val();
+          var fileUploaded = $('#fileURL').val();
+
+          // Track the event with Mixpanel
+          mixpanel.track("Issue Reported", {
+              reporter_name: reporterName,
+              issue_title: issueTitle,
+              description: description,
+              severity: severity,
+              device_type: deviceType,
+              file_uploaded: fileUploaded,
+              form_completion_duration: formCompletionDuration
+          });
+
+          window.location.href = 'confirmation.html'; // updated confirmation page url
+      },
+      error: function() {
+          alert('There was an error submitting the form, please try again.');
+      }
+  });
+}
+
+
+</script>
+
+
+
+
 
 </body>
 </html>
